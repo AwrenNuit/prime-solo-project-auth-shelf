@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { put } from 'redux-saga/effects';
+import { put, takeLatest } from 'redux-saga/effects';
 
 function* getShelf() {
     try{
@@ -14,4 +14,8 @@ function* getShelf() {
     }
 } 
 
-export default getShelf;
+function* getShelfSaga() {
+    yield takeLatest('GET_SHELF', getShelf);
+}
+
+export default getShelfSaga;
