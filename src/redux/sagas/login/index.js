@@ -1,6 +1,7 @@
 import { all } from 'redux-saga/effects';
-import { default as loginSaga } from './login/index';
-import {default as shelfSaga} from './shelf/index';
+import loginSaga from './loginSaga';
+import registrationSaga from './registrationSaga';
+import userSaga from './userSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -12,6 +13,7 @@ import {default as shelfSaga} from './shelf/index';
 export default function* rootSaga() {
   yield all([
     loginSaga(),
-    shelfSaga()
+    registrationSaga(),
+    userSaga(),
   ]);
 }
