@@ -45,6 +45,14 @@ router.delete('/:id', (req, res) => {
     let SQLquery = `DELETE FROM item 
                     WHERE item.id = $1 AND item.user_id = $2
                     JOIN user ON user.id = item.user_id;`;
+    pool.query(SQLquery, id)
+    .then(result=>{
+        res.sendStatus(201);
+        })
+    .catch(error=>{
+        console.log('ERROR IN / DELETE ---------------------------------------->', error);
+        res.sendStatus(500);
+    });             
 });
 
 
