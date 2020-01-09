@@ -3,7 +3,6 @@ import {takeLatest, put} from 'redux-saga/effects';
 
 // POST items to database
 function* addItem(action){
-  console.log('in there');
   try{
       yield axios.post(`/api/shelf`, action.payload);
       yield put({type: `GET_SHELF`});
