@@ -64,15 +64,26 @@ export default function(props){
         )
     } else {
         buttonArea = (
-            <Button
-                variant='contained'
-                color='primary'
-                onClick={()=>setEditMode(true)}
-            >
-                Edit
-            </Button>
+            <>
+                <Button
+                    variant='contained'
+                    color='primary'
+                    onClick={()=>setEditMode(true)}
+                >
+                    Edit
+                </Button>
+                <Button
+                    variant='contained'
+                    color='secondary'
+                    onClick={()=>dispatch({type: 'DELETE_ITEM', payload: item.id})}
+                >
+                    Delete
+                </Button>
+            </>
         )
     }
+
+
     return (
         <Card>
             <CardMedia 
