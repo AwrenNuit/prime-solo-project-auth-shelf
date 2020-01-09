@@ -48,8 +48,15 @@ router.delete('/:id', (req, res) => {
 /**
  * Update an item if it's something the logged in user added
  */
-router.put('/:id', (req, res) => {
-
+router.put('/:id', rejectUnauthenticated, (req, res) => {
+    const query = 'UPDATE "item" SET "description"=$1 WHERE "id"=$2 AND "user_id"=$3';
+    pool.query(query, [req.body.description, req.params.id, req.user.id])
+        .then(result => {
+            res.sendStatus(200);
+        }).catch(error=>{
+            res.sendStatus(500);
+            console.log(error);
+        })
 });
 
 
