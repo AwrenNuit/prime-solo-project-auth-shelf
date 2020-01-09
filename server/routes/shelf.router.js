@@ -23,7 +23,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
  * Add an item for the logged in user to the shelf
  */
 router.post('/', (req, res) => {
-    let id = [req.body.description, req.body.image_url, req.user.id]
+    let id = [req.body.description, req.body.image_url, req.user.id];
     let SQLquery = `INSERT INTO item (description, image_url, user_id)
                     VALUES($1, $2, $3);`;
     pool.query(SQLquery, id)
@@ -41,7 +41,18 @@ router.post('/', (req, res) => {
  * Delete an item if it's something the logged in user added
  */
 router.delete('/:id', (req, res) => {
-
+    let id = [req.params.id, req.user.id];
+    let SQLquery = `DELETE FROM item 
+                    WHERE item.id = $1 AND item.user_id = $2
+                    JOIN user ON user.id = item.user_id;`;
+    pool.query(SQLquery, id)
+    .then(result=>{
+        res.sendStatus(201);
+        })
+    .catch(error=>{
+        console.log('ERROR IN / DELETE ---------------------------------------->', error);
+        res.sendStatus(500);
+    });             
 });
 
 
