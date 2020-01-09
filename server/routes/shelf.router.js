@@ -23,7 +23,17 @@ router.get('/', rejectUnauthenticated, (req, res) => {
  * Add an item for the logged in user to the shelf
  */
 router.post('/', (req, res) => {
-
+    let id = [req.body.description, req.body.image_url, req.user.id]
+    let SQLquery = `INSERT INTO item (description, image_url, user_id)
+                    VALUES($1, $2, $3);`;
+    pool.query(SQLquery, id)
+    .then(result=>{
+        res.sendStatus(201);
+        })
+    .catch(error=>{
+        console.log('ERROR IN / POST ---------------------------------------->', error);
+        res.sendStatus(500);
+    });
 });
 
 
