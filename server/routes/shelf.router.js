@@ -43,8 +43,7 @@ router.post('/', (req, res) => {
 router.delete('/:id', (req, res) => {
     let id = [req.params.id, req.user.id];
     let SQLquery = `DELETE FROM item 
-                    WHERE item.id = $1 AND item.user_id = $2
-                    JOIN user ON user.id = item.user_id;`;
+                    WHERE id = $1 AND user_id = $2;`;
     pool.query(SQLquery, id)
     .then(result=>{
         res.sendStatus(201);
