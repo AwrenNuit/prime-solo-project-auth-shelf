@@ -1,16 +1,28 @@
-import React from 'react';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 
-// This is one of our simplest components
-// It doesn't have local state, so it can be a function component.
-// It doesn't dispatch any redux actions or display any part of redux state
-// or even care what the redux state is, so it doesn't need 'connect()'
+class InfoPage extends Component{
 
-const InfoPage = () => (
-  <div>
-    <p>
-      Shelf Page
-    </p>
-  </div>
-);
+  state = {
+    description: '',
+    image_url: ''
+  }
 
-export default InfoPage;
+  handleChange = (e, propName) => {
+    this.setState({
+      [propName]: e.target.value
+    });
+  }
+
+  render(){
+    return(
+      <form>
+        <input type="text" onChange={(event)=>this.handleChange(event, `description`)} value={this.state.description} placeholder="description" />
+        <input type="text" onChange={(event)=>this.handleChange(event, `image_url`)} value={this.state.image_url} placeholder="image url" />
+        <button type="submit">Add Item</button>
+      </form>
+    );
+  }
+}
+
+export default connect()(InfoPage);
