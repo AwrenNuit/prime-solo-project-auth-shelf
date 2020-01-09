@@ -14,9 +14,15 @@ class InfoPage extends Component{
     });
   }
 
+  handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('in there');
+    this.props.dispatch({type: `POST_ITEM`, payload: this.state});
+  }
+
   render(){
     return(
-      <form>
+      <form onSubmit={(event)=>this.handleSubmit(event)}>
         <input type="text" onChange={(event)=>this.handleChange(event, `description`)} value={this.state.description} placeholder="description" />
         <input type="text" onChange={(event)=>this.handleChange(event, `image_url`)} value={this.state.image_url} placeholder="image url" />
         <button type="submit">Add Item</button>
