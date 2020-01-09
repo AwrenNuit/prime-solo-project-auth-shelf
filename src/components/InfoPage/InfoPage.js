@@ -16,7 +16,6 @@ class InfoPage extends Component{
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log('in there');
     this.props.dispatch({type: `POST_ITEM`, payload: this.state});
   }
 
