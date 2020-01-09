@@ -1,28 +1,14 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import AddItem from '../AddItem/AddItem';
 
 import ShelfItem from '../ShelfItem/ShelfItem';
 
 class InfoPage extends Component{
 
-  state = {
-    description: '',
-    image_url: ''
-  }
-
-  handleChange = (e, propName) => {
-    this.setState({
-      [propName]: e.target.value
-    });
-  }
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-    this.props.dispatch({type: `POST_ITEM`, payload: this.state});
-  }
-
   render(){
     return(
+<<<<<<< HEAD
       <div>
         {/* {this.props.shelf.map(item => <ShelfItem item={item} />)} */}
         {JSON.stringify(this.props.reduxState)}
@@ -32,6 +18,11 @@ class InfoPage extends Component{
           <button type="submit">Add Item</button>
         </form>
       </div>
+=======
+      <>
+        <AddItem />
+      </>
+>>>>>>> a05a52e7892324f77252f668a1924d26e201061a
     );
   }
 }
