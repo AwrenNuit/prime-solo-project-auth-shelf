@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
+import ShelfItem from '../ShelfItem/ShelfItem';
+
 class InfoPage extends Component{
 
   state = {
@@ -21,13 +23,17 @@ class InfoPage extends Component{
 
   render(){
     return(
-      <form onSubmit={(event)=>this.handleSubmit(event)}>
-        <input type="text" onChange={(event)=>this.handleChange(event, `description`)} value={this.state.description} placeholder="description" />
-        <input type="text" onChange={(event)=>this.handleChange(event, `image_url`)} value={this.state.image_url} placeholder="image url" />
-        <button type="submit">Add Item</button>
-      </form>
+      <div>
+        {/* {this.props.shelf.map(item => <ShelfItem item={item} />)} */}
+        {JSON.stringify(this.props.reduxState)}
+        <form onSubmit={(event)=>this.handleSubmit(event)}>
+          <input type="text" onChange={(event)=>this.handleChange(event, `description`)} value={this.state.description} placeholder="description" />
+          <input type="text" onChange={(event)=>this.handleChange(event, `image_url`)} value={this.state.image_url} placeholder="image url" />
+          <button type="submit">Add Item</button>
+        </form>
+      </div>
     );
   }
 }
 
-export default connect()(InfoPage);
+export default connect(reduxState=>reduxState)(InfoPage);
