@@ -6,10 +6,9 @@ const router = express.Router();
 /**
  * Get all of the items on the shelf
  */
-router.get('/', rejectUnauthenticated, (req, res) => {
-    const query = 'SELECT * FROM "item" WHERE "user_id"=$1';
-    console.log(req.user);
-    pool.query(query, [req.user.id])
+router.get('/', (req, res) => {
+    const query = 'SELECT * FROM "item"';
+    pool.query(query)
         .then(result => {
             res.send(result.rows);
         }).catch(error=>{
@@ -22,7 +21,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 /**
  * Add an item for the logged in user to the shelf
  */
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
     let id = [req.body.description, req.body.image_url, req.user.id];
     let SQLquery = `INSERT INTO item (description, image_url, user_id)
                     VALUES($1, $2, $3);`;
@@ -40,7 +39,7 @@ router.post('/', (req, res) => {
 /**
  * Delete an item if it's something the logged in user added
  */
-router.delete('/:id', (req, res) => {
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
     let id = [req.params.id, req.user.id];
     let SQLquery = `DELETE FROM item 
                     WHERE id = $1 AND user_id = $2;`;
